@@ -103,66 +103,6 @@ async function listLabels(auth) {
   });
 }
 
-//async function listInboxEmails(auth) {
-//  const gmail = google.gmail({ version: 'v1', auth });
-//  const res = await gmail.users.messages.list({
-//    userId: 'me',
-//    labelIds: ['INBOX'], // Specify the label 'INBOX' to get emails in the inbox.
-//  });
-//  const emails = res.data.messages;
-//  if (!emails || emails.length === 0) {
-//    console.log('No emails found in the inbox.');
-//    return;
-//  }
-//
-//  console.log('Inbox Emails:');
-//  for (const email of emails) {
-//    const emailDetails = await gmail.users.messages.get({
-//      userId: 'me',
-//      id: email.id,
-//    });
-//
-//    console.log(`Subject: ${emailDetails.data.subject}`);
-//    console.log(`From: ${emailDetails.data.payload.headers.find(header => header.name === 'From').value}`);
-//    console.log('---');
-//  }
-//}
-///**
-// * Lists emails in the user's inbox.
-// *
-// * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
-// * @return {Promise<Array<Object>>} Array of email details.
-// */
-//async function listInboxEmails(auth) {
-//  const gmail = google.gmail({ version: 'v1', auth });
-//  const res = await gmail.users.messages.list({
-//    userId: 'me',
-//    labelIds: ['INBOX'],
-//  });
-//  const emails = res.data.messages;
-//
-//  if (!emails || emails.length === 0) {
-//    console.log('No emails found in the inbox.');
-//    return [];
-//  }
-//
-//  const emailDetails = [];
-//
-//  for (const email of emails) {
-//    const emailDetailsResponse = await gmail.users.messages.get({
-//      userId: 'me',
-//      id: email.id,
-//    });
-//
-//    const subject = emailDetailsResponse.data.subject || 'No Subject';
-//    const from = emailDetailsResponse.data.payload.headers.find(header => header.name === 'From').value;
-//
-//    emailDetails.push({ subject, from });
-//  }
-//
-//  return emailDetails;
-//}
-
 /**
  * Lists emails in the user's inbox.
  *
@@ -200,80 +140,6 @@ async function listInboxEmails(auth) {
   return emailDetails;
 }
 
-
-
-
-
-
-//////authorize().then(listLabels).catch(console.error);
-//////authorize().then(listInboxEmails).catch(console.error);
-////
-////// [END gmail_quickstart]
-//const express = require('express');
-//const app = express();
-//
-//// Your existing code for Gmail API and listInboxEmails function here...
-//
-//// Display inbox emails route
-//app.get('/emails', async (req, res) => {
-//  try {
-//    const auth = await authorize();
-//    const inboxEmails = await listInboxEmails(auth);
-//
-//    const htmlContent = inboxEmails
-//      .map(email => `<p><strong>Subject:</strong> ${email.subject}<br><strong>From:</strong> ${email.from}</p>`)
-//      .join('');
-//    //const htmlContent = inboxEmails
-//    //  .map(email => `
-//    //    <div>
-//    //      <p><strong>Subject:</strong> ${email.subject}</p>
-//    //      <p><strong>From:</strong> ${email.from}</p>
-//    //      <p><strong>Body:</strong> ${email.body}</p>
-//    //      <hr>
-//    //    </div>
-//    //  `)
-//    //  .join('');
-//
-//    res.send(htmlContent);
-//  } catch (error) {
-//    console.error(error);
-//    res.status(500).send('Error fetching inbox emails');
-//  }
-//});
-//
-////// Start the Express server
-////const port = 3000;
-////app.listen(port, () => {
-////  console.log(`Server is running at http://localhost:${port}`);
-////});
-//////
-////app.get('/emails', async (req, res) => {
-////  try {
-////    const auth = await authorize();
-////    const inboxEmails = await listInboxEmails(auth);
-////
-////    // Render the inbox emails in an HTML format
-////    const htmlContent = inboxEmails
-////      .map(email => `
-////        <div>
-////          <p><strong>Subject:</strong> ${email.subject}</p>
-////          <p><strong>From:</strong> ${email.from}</p>
-////          <p><strong>Body:</strong> ${email.body}</p>
-////          <hr>
-////        </div>
-////      `)
-////      .join('');
-////
-////    res.send(htmlContent);
-////  } catch (error) {
-////    console.error(error);
-////    res.status(500).send('Error fetching inbox emails');
-////  }
-////});
-////
-
-
-
 const express = require('express');
 const app = express();
 
@@ -303,14 +169,6 @@ app.get('/emails', async (req, res) => {
     res.status(500).send('Error fetching inbox emails');
   }
 });
-
-//// Start the Express server
-//const port = 3000;
-//app.listen(port, () => {
-//  console.log(`Server is running at http://localhost:${port}`);
-// const url = `http://localhost:${port}/emails`;
-//  await open(url);
-//});
 
 // Start the Express server and open the browser
 const startServer = async () => {
